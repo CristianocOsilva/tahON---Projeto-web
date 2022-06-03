@@ -1,5 +1,5 @@
-from mercadopygo import services
-from mercadopygo.api_mercadopago import payment
+import services
+from api_mercadopago import payment
 from flask import Flask, Blueprint, request, flash, url_for, redirect, render_template
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -282,5 +282,4 @@ def create_tables():
 
 
 if __name__ == '__main__':
-   init_db()
    app.run(debug = True, port=5000)
