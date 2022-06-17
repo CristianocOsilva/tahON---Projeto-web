@@ -1,0 +1,48 @@
+{% extends "template.html" %}
+{% block conteudo %}
+
+<a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+<a class="btn btn-danger" href="{{ url_for('logout') }}">Logout</a>
+<a class="btn btn-primary" href="{{ url_for('cadastro') }}">Novo Cadastro</a>
+
+<hr />
+{%- for message in get_flashed_messages() %}
+{{ message }}
+{%- endfor %}
+
+<h3>Fornecedores (<a href="{{ url_for('new') }}">Adiciona Fornecedor
+    </a>)</h3>
+
+<table border=5>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Ramo</th>
+            <th>Endereço</th>
+            <th>Telefone</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for fornecedor in fornecedores %}
+        <tr>
+            <td>{{ fornecedor.nome }}</td>
+            <td>{{ fornecedor.cnpj }}</td>
+            <td>{{ fornecedor.ramo }}</td>
+            <td>{{ fornecedor.endereco }}</td>
+            <td>{{ fornecedor.telefone }}</td>
+            <td>
+                <a href="{{ url_for('editar', id=fornecedor.id) }}">Editar</a>
+                <a href="{{ url_for('deletar', id=fornecedor.id) }}">Deletar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+    
+
+</table>
+
+
+{% endblock %}

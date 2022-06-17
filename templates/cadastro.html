@@ -1,231 +1,50 @@
-<!DOCTYPE html>
-<html lang="pt-br" class="h-100">
+{% extends "template.html" %}
+{% block conteudo %}
 
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <!-- Icones Materia design -->
-    <link rel="stylesheet" type="text/css"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <!-- Icones fontawesome -->
-    <script src="https://kit.fontawesome.com/83416f206d.js" crossorigin="anonymous"></script>
-    <!-- Style CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>tahON | SBO</title>
-  </head>
+<main role="main">
 
-<body class="d-flex flex-column h-100 bg-light">
-  <header>
-    <!-- Inicio Navbar Faixa -->
-    <nav class="navbar navbar-expand navbar-faixa">
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto mr-lg-3">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/cadastro">Cadastro</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/fornecedores">Fornecedores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/catalogo">Catalogo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fab fa-whatsapp"></i> (19) 99997-1111</a>
-          </li>
-          <li class="nav-item"><a class="nav-link">|</a></li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fas fa-phone-alt"></i> (19) 3455-7222</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <!-- Fim faixa -->
-    <!-- Inicio Menu -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-menu">
-      <!-- Botão mobile -->
-      <button class="navbar-toggler ml-3" type="button" data-toggle="collapse" data-target="#navbar-menu"
-        aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- Logo -->
-      <a class="navbar-brand" href="#"><img class="logo" src="{{ url_for('static', filename='img/e-commerce2.jpg') }}"></a>
-      <a class="navbar-brand" href="#">tahON</a>
-      <!-- Busca e Botões -->
-      <div class="collapse navbar-collapse" id="navbar-menu">
-        <div class="col-12 col-lg-8">
-          <form class="form-inline row">
-            <div class="col-8 col-lg-10">
-              <input class="form-control w-100" type="search" placeholder="O que você procura?" aria-label="Search">
-            </div>
-            <div class="col-4 col-lg-2">
-              <button class="btn btn-primary w-100" type="submit"><i class="fas fa-search"></i></button>
-            </div>
-          </form>
-        </div>
-        <div class="col-12 col-lg-4 mt-2 mt-lg-0">
-          <div class="row">
-            <div class="col-6">
-              <a class="btn btn-primary w-100" href="/meusdados"><i class="far fa-user"></i> Meus Dados</a>
-            </div>
-            <div class="col-6">
-              <a class="btn btn-primary w-100" href="#"><i class="fas fa-shopping-bag"></i> Minha Sacola</a>
-            </div>
+  <!-- Newsletter -->
+  <div class="bg-primary text-secundary p-2">
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <form action="{{ request.path }}" method="post" class="form-inline col-12">
+          <div class="col-12">
+            <h2>Cadastro de Fornecedores</h2>
           </div>
-        </div>
-      </div>
-    </nav>
-    <!-- Fim menu -->
-  </header>
-  <main role="main">
+          <fieldset>
+            {{ form.csrf_token() }}
+            <div class="form-group inputBox">
+              {{ form.nome.label(class="form-label") }}
+              {{ form.nome(class="form-control") }}
+            </div>
+            <div class="form-group inputBox">
+              {{ form.cnpj.label(class="form-label") }}
+              {{ form.cnpj(class="form-control") }}
+            </div>
+            <div class="form-group inputBox">
+              {{ form.ramo.label(class="form-label") }}
+              {{ form.ramo(class="form-control") }}
+            </div>
+            <div class="form-group inputBox">
+              {{ form.endereco.label(class="form-label") }}
+              {{ form.endereco(class="form-control") }}
+            <div class="form-group inputBox">
+              {{ form.telefone.label(class="form-label") }}
+              {{ form.telefone(class="form-control") }}
+            </div>
+            <div class="form-group buttons">
+              {{ form.salvar(class="btn btn-primary") }}
+              <a class="btn btn-danger" href="{{ url_for('lista') }}">cadastrar</a>
+            </div>
+          </fieldset>
 
-    <!-- Newsletter -->
-    <div class="bg-primary text-secundary p-2">
-      <div class="container mt-5 mb-5">
-        <div class="row">
-          <form action="{{ request.path }}" method="post" class="form-inline col-12">
-            <div class="col-12">
-              <h2>Cadastro de Fornecedores</h2>
-            </div>
-            <div class="form-group mb-2 col-6 col-md-4 col-lg-4">
-              <label for="nome" class="sr-only">Nome</label>
-              <input type="text" class="form-control w-100" id="nome" name="nome" placeholder="Digite seu nome">
-            </div>
-            <div class="form-group mb-2 col-6 col-md-4 col-lg-4">
-              <label for="produto" class="sr-only">Produto</label>
-              <input type="text" class="form-control w-100" id="produto" name="produto" placeholder="tipo de produto">
-            </div>
-            <div class="form-group mb-2 col-6 col-md-4 col-lg-4">
-              <label for="email" class="sr-only">Email</label>
-              <input type="text" class="form-control w-100" id="email" name="email" placeholder="Email@">
-            </div>
-            <div class="form-group mb-2 col-6 col-md-4 col-lg-4">
-              <label for="endereço" class="sr-only">Endereço</label>
-              <input type="text" class="form-control w-100" id="endereco" name="endereco"
-                placeholder="Informe seu Endereço">
-            </div>
-            <div class="form-group col-12 col-md-4 col-lg-2">
-              <button type="submit" class="btn btn-secundary w-100 mb-2">
-                Cadastrar</button>
-            </div>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
-    <!--/ Mapa -->
-    <section>
-      <h6 class="titulo-principal">Localização</h6>
-
-      <div class="folium-map" id="map_b91e28a46cf645de1a958454d303af7d"
-          style="width: 1350px; height: 300px; padding: 3em 0"></div>
-
-      <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
-      <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-      <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css" />
-      <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
-      <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css" />
+  </div>
 
 
 
-      <script>
+</main>
 
-          var map_b91e28a46cf645de1a958454d303af7d = L.map(
-              "map_b91e28a46cf645de1a958454d303af7d",
-              {
-                  center: [-22.73714, -47.40519],
-                  crs: L.CRS.EPSG3857,
-                  zoom: 11,
-                  zoomControl: true,
-                  preferCanvas: false,
-              }
-          );
-
-
-
-
-
-          var tile_layer_7b2065216a551bd1e4867141c25faab4 = L.tileLayer(
-              "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              { "attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false }
-          ).addTo(map_b91e28a46cf645de1a958454d303af7d);
-
-
-          var marker_ea2cf8e0f5bec7fc93ab48f92bc5eeb3 = L.marker(
-              [-22.73714, -47.40519],
-              {}
-          ).addTo(map_b91e28a46cf645de1a958454d303af7d);
-
-
-          var icon_6ae647a5060f7e82a00fd348db2c9be5 = L.AwesomeMarkers.icon(
-              { "extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon" }
-          );
-          marker_ea2cf8e0f5bec7fc93ab48f92bc5eeb3.setIcon(icon_6ae647a5060f7e82a00fd348db2c9be5);
-
-
-          var popup_e45abffedaec97cc37f16c89ca50d108 = L.popup({ "maxWidth": "100%" });
-
-
-          var html_5b4fec8fe28abf9b239b3e977a27271c = $(`<div id="html_5b4fec8fe28abf9b239b3e977a27271c" style="width: 100.0%; height: 100.0%;">Sede tahON</div>`)[0];
-          popup_e45abffedaec97cc37f16c89ca50d108.setContent(html_5b4fec8fe28abf9b239b3e977a27271c);
-
-
-          marker_ea2cf8e0f5bec7fc93ab48f92bc5eeb3.bindPopup(popup_e45abffedaec97cc37f16c89ca50d108)
-              ;
-
-
-
-
-          var circle_marker_82d7f805b145f24dbf14de9a30f5ba56 = L.circleMarker(
-              [-22.73714, -47.40519],
-              { "bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3 }
-          ).addTo(map_b91e28a46cf645de1a958454d303af7d);
-
-
-          var popup_6616e402e975ae82efe50afb87e28bc9 = L.popup({ "maxWidth": "100%" });
-
-
-          var html_324b1a9707f9a6332daa98597fa2bab4 = $(`<div id="html_324b1a9707f9a6332daa98597fa2bab4" style="width: 100.0%; height: 100.0%;">Sede tahON</div>`)[0];
-          popup_6616e402e975ae82efe50afb87e28bc9.setContent(html_324b1a9707f9a6332daa98597fa2bab4);
-
-
-          circle_marker_82d7f805b145f24dbf14de9a30f5ba56.bindPopup(popup_6616e402e975ae82efe50afb87e28bc9)
-              ;
-
-
-
-      </script>
-
-
-  </section>
-
-
-  </main>
-  <footer class="footer mt-auto">
-    <div class="container">
-      <p class="float-right">
-        <a href="#">Ir ao topo</a>
-      </p>
-      <p>
-        Univesp<a href="https://www.univesp.br"><b>2022</b></a>
-      </p>
-    </div>
-  </footer>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="{{ url_for('static', filename='js/jquery-3.4.1.slim.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-</body>
-
-</html>
+{% endblock %}

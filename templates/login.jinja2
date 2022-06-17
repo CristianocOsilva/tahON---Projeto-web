@@ -18,9 +18,9 @@
       </div>
     {% endfor %}
 
-    <h1>Log In</h1>
+    <h1>Faça seu login</h1>
 
-    <form method="POST" action="/login">
+    <form method="POST" action="{{ url_for('login') }}">
       {{ form.csrf_token }}
 
       <fieldset class="email">
@@ -35,11 +35,11 @@
       </fieldset>
 
       <fieldset class="password">
-        {{ form.password.label }}
-        {{ form.password }}
+        {{ form.senha.label }}
+        {{ form.senha }}
         {% if form.email.errors %}
           <ul class="errors">
-            {% for error in form.password.errors %}
+            {% for error in form.senha.errors %}
               <li>{{ error }}</li>{% endfor %}
           </ul>
         {% endif %}
@@ -50,7 +50,7 @@
       </div>
 
       <div class="login-signup">
-        <span>Don't have an account? <a href="{{ url_for('signup') }}">Sign up.</a></span>
+        <span>Possui cadastro? <a href="{{ url_for('signup') }}">Novo Cadastro</a></span>
       </div>
 
     </form>
